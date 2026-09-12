@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <title>Log in | My Blog</title>
+</head>
+
+<body class="login-page">
+    <main class="page create-shell login-shell">
+        <div class="page-heading">
+            <p class="eyebrow">Welcome back</p>
+            <h1>Log in</h1>
+            <p class="page-intro">Return to your space for ideas, notes, and stories.</p>
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+            <div class="form-errors" role="alert">
+                {{ form.non_field_errors }}
+            </div>
+            {% endif %}
+
+            <div class="form_field">
+                <label for="id_username">Username</label>
+                <input id="id_username" name="username" type="text" autocomplete="username" required>
+                {{ form.username.errors }}
+            </div>
+            <div class="form_field">
+                <label for="id_password">Password</label>
+                <input id="id_password" name="password" type="password" autocomplete="current-password" required>
+                {{ form.password.errors }}
+            </div>
+
+            <button class="primary-button" type="submit">Log in</button>
+            <a class="primary-button" href="{% url 'register' %}">Create account</a>
+        </form>
+    </main>
+</body>
+
+</html>

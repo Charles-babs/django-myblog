@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Post</title>
+    <style>
+        :root {
+            --ink: #202a2b;
+            --muted: #718080;
+            --paper: #f6f3ed;
+            --surface: #fffdf9;
+            --line: #dce2dc;
+            --accent: #d86f52;
+            --accent-dark: #ad4d37;
+            --shadow: 0 24px 60px rgba(35, 53, 50, 0.09);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            display: grid;
+            place-items: center;
+            background: var(--paper);
+            color: var(--ink);
+            font-family: Georgia, 'Times New Roman', serif;
+        }
+
+        body::before {
+            position: fixed;
+            inset: 0 0 auto;
+            height: 9px;
+            content: '';
+            background: var(--accent);
+        }
+
+        .delete-shell {
+            width: min(100% - 32px, 540px);
+            padding: 28px;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-top: 4px solid var(--accent);
+            border-radius: 4px;
+            box-shadow: var(--shadow);
+        }
+
+        .eyebrow {
+            margin: 0 0 14px;
+            color: var(--accent-dark);
+            font-family: Arial, sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 0 0 18px;
+            font-size: clamp(2.2rem, 6vw, 3.4rem);
+            font-weight: 400;
+            letter-spacing: -0.04em;
+            line-height: 0.95;
+        }
+
+        p {
+            margin: 0 0 26px;
+            color: var(--muted);
+            font-size: 1.06rem;
+            line-height: 1.6;
+        }
+
+        form {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin: 0;
+        }
+
+        button,
+        a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 46px;
+            padding: 0 20px;
+            border-radius: 2px;
+            font-family: Arial, sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background 160ms ease, transform 160ms ease;
+        }
+
+        button {
+            color: #fffdf9;
+            background: var(--ink);
+            border: none;
+        }
+
+        button:hover {
+            background: var(--accent-dark);
+            transform: translateY(-1px);
+        }
+
+        a {
+            color: var(--accent-dark);
+            background: transparent;
+            border: 1px solid var(--line);
+        }
+
+        a:hover {
+            color: var(--ink);
+            border-color: var(--accent);
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+
+<body>
+    <main class="delete-shell">
+        <p class="eyebrow">Post actions</p>
+        <h1>Delete Post</h1>
+        <p>Are you sure you want to delete this post?</p>
+
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit">Yes, Delete</button>
+            <a href="{% url 'single_post' post_id=post.id %}">Cancel</a>
+        </form>
+    </main>
+</body>
+
+</html>

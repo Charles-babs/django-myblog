@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <title>Register | My Blog</title>
+</head>
+
+<body class="login-page">
+    <main class="page create-shell login-shell">
+        <div class="page-heading">
+            <p class="eyebrow">Join the conversation</p>
+            <h1>Create your account</h1>
+            <p class="page-intro">Set up your profile to share ideas, notes, and stories.</p>
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+            <div class="form-errors" role="alert">
+                {{ form.non_field_errors }}
+            </div>
+            {% endif %}
+
+            <div class="form_field">
+                <label for="id_username">Username</label>
+                <input id="id_username" name="username" type="text" autocomplete="username" required>
+                {{ form.username.errors }}
+            </div>
+
+            <div class="form_field">
+                <label for="id_email">Email address</label>
+                <input id="id_email" name="email" type="email" autocomplete="email" required>
+                {{ form.email.errors }}
+            </div>
+
+            <div class="form_field">
+                <label for="id_password1">Password</label>
+                <input id="id_password1" name="password1" type="password" autocomplete="new-password" required>
+                {{ form.password1.errors }}
+            </div>
+
+            <div class="form_field">
+                <label for="id_password2">Confirm password</label>
+                <input id="id_password2" name="password2" type="password" autocomplete="new-password" required>
+                {{ form.password2.errors }}
+            </div>
+
+            <button class="primary-button" type="submit">Create account</button>
+        </form>
+    </main>
+</body>
+
+</html>

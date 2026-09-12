@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}?v=3">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css"
+        integrity="sha512-QeR2VH+lsBE5LSAe1Q5EnTBbe7XTBubt8dG93Y7gidSgdMCr8nVqKcfKAMyN96SV8KDbZVTDXChatu5G2KQGzg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+    <!-- <script src="{% static 'javascript/main.js' %}" defer></script> -->
+    <title>Posts</title>
+</head>
+
+<body class="posts-page">
+    <main class="page posts-shell">
+        <header class="posts-header">
+            <div class="posts-heading">
+                <p class="eyebrow">Your journal</p>
+                <h1>All posts</h1>
+                <!-- <p class="page-intro">A quiet archive of your latest thoughts.</p> -->
+                {% if user.is_authenticated %}
+                <div class="posts-userbar">
+                    <p>Welcome, <strong>{{ user.username }}</strong></p>
+                    <form class="logout-form" method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button class="text-button" type="submit">Log out</button>
+                    </form>
+
+                </div>
+                {% endif %}
+            </div>
+            <a class="primary-button posts-create-button" href="{% url 'create_posts' %}">Create post</a>
+        </header>
+
+        <section class="post-list">
+            {% for post in posts %}
+            <article class="post-card">
+                <p class="post-index">Post {{ forloop.counter|stringformat:"02d" }}</p>
+                <h2 class="post-title">{{ post.title }}</h2>
+                {% if post.image %}
+                <img src="{{ post.image.url }}" alt="{{ post.title }}" class="post-image">
+                {% endif %}
+                <p class="post-content">{{ post.excerpt }}</p>
+                <div class="post-actions">
+                    <a href="{% url 'single_post' post.id%}"><button class="post-action" type="button"
+                            aria-label="View post">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                        </button></a>
+                    <a href="{% url 'edit_post' post.id %}"><button class="post-action" type="button"
+                            aria-label="Edit post">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </button></a>
+                    <a href="{% url 'delete_post' post.id %}"><button class="post-action" type="button"
+                            aria-label="Delete post">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </button></a>
+                </div>
+            </article>
+            {% empty %}
+            <div class="empty-state">
+                <p class="post-title">Nothing here yet.</p>
+                <p>Start with an idea and make it yours.</p>
+            </div>
+
+            {% endfor %}
+        </section>
+    </main>
+
+</body>
+
+</html>
