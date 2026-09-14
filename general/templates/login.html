@@ -36,8 +36,12 @@
                 {{ form.password.errors }}
             </div>
 
+            <!-- ...existing code... -->
             <button class="primary-button" type="submit">Log in</button>
+
+            <p>Don't have an account? You can sign up here.</p>
             <a class="primary-button" href="{% url 'register' %}">Create account</a>
+            <!-- ...existing code... -->
         </form>
     </main>
 </body>
