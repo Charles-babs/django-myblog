@@ -56,6 +56,11 @@
                             aria-label="Delete post">
                             <i class="fa fa-trash" aria-hidden="true"></i>
                         </button></a>
+                    <a href="{% url 'like_post' post.id %}"><button class="post-action" type="button"
+                            aria-label="Like post">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                        </button></a>
+                        <p class="post-likes">Likes: {{ post.likes.count }}</p>  
                 </div>
             </article>
             {% empty %}
